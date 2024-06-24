@@ -18,8 +18,11 @@ const userSchema= new mongoose.Schema({
     profilePicture:{
         type:String,
         default:"https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
-    }
-
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false   
+    },
 },{timestamps:true}  //helps to get time when the user created
 );
 

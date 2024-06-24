@@ -27,7 +27,7 @@ export const loginUser=async(req,res,next)=>{
             if (!passwordMatch || !userDetail) {
                 return res.status(400).json({ message: "Invalid Credentials" });
               }
-    const token=jwt.sign({_id:userDetail._id},process.env.JWT_SECRET_KEY,{expiresIn:"1h"})
+    const token=jwt.sign({_id:userDetail._id,isAdmin:userDetail.isAdmin},process.env.JWT_SECRET_KEY,{expiresIn:"1h"})
     const {password: passkey, ...rest}=userDetail._doc;
     userDetail.token=token;
     res.status(200).json({
@@ -50,7 +50,7 @@ export const google = async (req, res, next) => {
         let user = await User.findOne({ email });
         
         if (user) { // login logic for existing user
-            const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+            const token = jwt.sign({ _id: user._id,isAdmin:user.isAdmin }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
             user.token = token;
             await user.save();
             const { password: passkey, ...rest } = user._doc;
@@ -72,7 +72,7 @@ export const google = async (req, res, next) => {
         });
         await newUser.save();
 
-        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY);
+        const token = jwt.sign({ id: newUser._id,isAdmin:newUser.isAdmin}, process.env.JWT_SECRET_KEY);
         newUser.token = token;
         await newUser.save();
         const {password:passkey, ...rest}= newUser._doc;

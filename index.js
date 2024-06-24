@@ -3,7 +3,8 @@ import cors from "cors"
 import dotenv from "dotenv"
 import connectDB from "./Database/config.js";
 import authRoute from "./Routers/authRouter.js"
-import userRouter from "./Routers/userRouter.js"
+import userRoute from "./Routers/userRouter.js"
+import postRoute from "./Routers/postRouter.js"
 dotenv.config();
 
 const app=express();
@@ -32,7 +33,8 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api/auth',authRoute)
-app.use('/api/user',userRouter)
+app.use('/api/user',userRoute)
+app.use('/api/post',postRoute)
 
 app.listen(process.env.PORT,()=>{
     console.log("The app is running successfully");
