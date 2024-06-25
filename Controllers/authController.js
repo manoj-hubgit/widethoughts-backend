@@ -22,9 +22,12 @@ export const loginUser=async(req,res,next)=>{
      try {
         const {email,password}=req.body;
         const userDetail=await User.findOne({email})
+        if(!userDetail){
+            return res.status(400).json({ message: "User not found" });
+        }
         const passwordMatch=await bcryptjs.compareSync(password,userDetail.password)
         
-            if (!passwordMatch || !userDetail) {
+            if (!passwordMatch) {
                 return res.status(400).json({ message: "Invalid Credentials" });
               }
     const token=jwt.sign({_id:userDetail._id,isAdmin:userDetail.isAdmin},process.env.JWT_SECRET_KEY,{expiresIn:"1h"})
@@ -72,7 +75,7 @@ export const google = async (req, res, next) => {
         });
         await newUser.save();
 
-        const token = jwt.sign({ id: newUser._id,isAdmin:newUser.isAdmin}, process.env.JWT_SECRET_KEY);
+        const token = jwt.sign({ id: newUser._id,isAdmin:newUser.isAdmin}, process.env.JWT_SECRET_KEY);  //
         newUser.token = token;
         await newUser.save();
         const {password:passkey, ...rest}= newUser._doc;
@@ -83,4 +86,4 @@ export const google = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}; 
+};  

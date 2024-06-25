@@ -38,7 +38,7 @@ export const getAllPost = async (req, res, next) => {
 //New
 export const getUserPosts = async (req, res, next) => {
   try {
-    const posts = await Posts.find({ userId: req.user._id }); //("userId","username profilePicture");
+    const posts = await Posts.find({ userId: req.user._id }); 
     res.status(200).json({ posts });
   } catch (error) {
     next(error);
@@ -53,9 +53,9 @@ export const updatePost = async (req, res, next) => {
     if (post.userId.toString() !== req.user._id.toString()) {
       return next(errorHandler(400, "You are not allowed to update this Post"));
     }
-    post.title = title;
+    post.title = title || post.title;
     post.content = content;
-    post.image = image;
+    post.image = image || post.image;
     post.category = category;
     const updatePost = await post.save();
     res.status(200).json(updatePost);
