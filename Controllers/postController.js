@@ -28,14 +28,15 @@ export const getAllPost = async (req, res, next) => {
   try {
     const posts = await Posts.find()
       .populate("userId", "username profilePicture")
-      .populate("comments.postedBy", "username profilePicture");
+      .populate("comments.postedBy", "username profilePicture")
+      .sort({createdAt: -1});   //show latest post at top
     res.status(200).json(posts);
   } catch (error) {
     next(error); //search need to b written here
   }
 };
 
-//New
+
 export const getUserPosts = async (req, res, next) => {
   try {
     const posts = await Posts.find({ userId: req.user._id }); 
