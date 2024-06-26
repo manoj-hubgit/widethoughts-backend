@@ -78,6 +78,9 @@ DELETE /api/post/deletepost/:id
 Deployed Link
 Check out the live backend at [WideThoughts Backend](https://widethoughts-backend.onrender.com/).
 
+API Documentation
+For detailed API documentation, visit [Postman Documentation](https://documenter.getpostman.com/view/35034228/2sA3drJErB).
+
 Contact
 If you have any questions or suggestions, feel free to reach out!
 
