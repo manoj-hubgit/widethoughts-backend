@@ -111,4 +111,6 @@ GET /api/post/getpost/:id
 PUT /api/post/updatepost/:id
 DELETE /api/post/deletepost/:id
 
+Deployed Link
+Check out the live backend at [WideThoughts Backend](https://widethoughts-backend.onrender.com/).
 
